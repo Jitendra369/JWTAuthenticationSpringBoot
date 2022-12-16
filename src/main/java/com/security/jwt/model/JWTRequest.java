@@ -1,5 +1,7 @@
 package com.security.jwt.model;
 
+
+// this model class use to send username and password in API
 public class JWTRequest {
 	
 	private String username;

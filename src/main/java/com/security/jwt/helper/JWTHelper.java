@@ -1,8 +1,8 @@
 package com.security.jwt.helper;
 
 
-//it has methods to generate & validate the tokens
-//util class for JWT
+// This class used to generate JWT-token, we get generate username & password using this class
+
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

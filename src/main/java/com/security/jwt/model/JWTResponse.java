@@ -1,5 +1,7 @@
 package com.security.jwt.model;
 
+
+// In this class we get response-token which store in this class "token' variable 
 public class JWTResponse {
 
 	private String token;

@@ -24,6 +24,9 @@ public class MyConfiguration extends WebSecurityConfigurerAdapter{
 	private CustomUserDetailsService customUserDetailsService;
 	
 	@Autowired
+	private JWTAuthenticationEntryPoint entryPointException;
+	
+	@Autowired
 	JWTAuthenticationFilter jwtAuthenticationFilter;
 	
 	@Override
@@ -37,7 +40,9 @@ public class MyConfiguration extends WebSecurityConfigurerAdapter{
 		.antMatchers("/token").permitAll()
 		.anyRequest().authenticated()
 		.and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.exceptionHandling().authenticationEntryPoint(entryPointException);
 		
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

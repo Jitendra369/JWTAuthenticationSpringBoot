@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+
+// this class is responsible for getting username and password
+// we can load user information, either in Database or local-storage
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 

@@ -19,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.security.jwt.helper.JWTHelper;
 import com.security.jwt.service.CustomUserDetailsService;
 
+// we have to create filter, which intersecpt the request before it access API's
+
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 	
@@ -37,6 +39,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 //		2. check weather it start from bearer
 //		3. Validate user
 
+		//check user has token, if yes then, extract the token 
 		String requestTokenHeader = request.getHeader("Authorization");
 		String username = null;
 		String jwtToken = null;
@@ -48,7 +51,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 			jwtToken = requestTokenHeader.substring(7);
 			
 			try {
-				
+//				get the username from token
 				username = this.jwtHelper.extractUsername(jwtToken);
 				
 			} catch (Exception e) {
@@ -62,11 +65,14 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 			UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
 			
 			if (username!= null && SecurityContextHolder.getContext().getAuthentication()==null) {
+//				build token
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				usernamePasswordAuthenticationToken.setDetails( new WebAuthenticationDetailsSource().buildDetails(request));
+//				save the user in security context
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			}else {
 				System.out.println("user is not validated..");
+				System.out.println("user has not send valid token..");
 			}
 		}
 		
